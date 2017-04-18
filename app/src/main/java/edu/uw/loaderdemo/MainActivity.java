@@ -8,6 +8,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "**Main**";
 
+
+    // Volley shortens the async download process
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

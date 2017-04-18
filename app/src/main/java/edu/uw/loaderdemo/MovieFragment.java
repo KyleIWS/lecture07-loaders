@@ -12,6 +12,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -77,12 +87,39 @@ public class MovieFragment extends Fragment {
         String urlString = "";
         try {
             urlString = "http://www.omdbapi.com/?t=" + URLEncoder.encode(query, "UTF-8");
-
+``
         }catch(UnsupportedEncodingException uee){
             Log.e(TAG, uee.toString());
             return; //break
         }
 
         //TODO: send request for data from url
+        RequestQueue queue = VolleyRequestSingleton.getInstance(getActivity()).setRequestQueue();
+
+        Request movieRequest = new JsonObjectRequest(Request.Method.GET, urlString, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v(TAG, response.toString());
+                    String posterUl = response.getString("Poster");
+                    fetchMovie(posterURL);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue.add(movieRequest);
+
+    }
+
+    public void fetchMovie(String url) {
+        // need a queue
+        //
+
+        imageLoaderimgLoader get(posterURLl, ImgeLoader.getImageListeneer(KmovieImage, 9.9))
     }
 }
